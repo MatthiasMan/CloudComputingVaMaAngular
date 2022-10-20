@@ -1,0 +1,7 @@
+<p>doc-list works!</p>
+<button type="button" class="btn btn-primary" (click)="getDocs()">GetDocs</button>
+
+<ul class="list-group" *ngFor="let post of posts">
+        <button (click)="tt(post)" type="button" class="btn btn-light">{{post}}</button>
+
+</ul>
