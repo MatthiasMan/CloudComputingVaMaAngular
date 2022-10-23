@@ -1,33 +1,58 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DocSelectionChangedService } from '../doc-selection-changed.service';
-
-
+import { BackEndServiceService } from '../back-end-service.service';
+import { Post } from '../Post';
+import { MatProgressSpinner } from '@angular/material/progress-spinner'
 @Component({
   selector: 'app-doc-list',
   templateUrl: './doc-list.component.html',
   styleUrls: ['./doc-list.component.css'],
 })
 export class DocListComponent implements OnInit {
-  posts: any;
-  constructor(private http: HttpClient, private Service: DocSelectionChangedService) { }
+  public posts!: Post[];
+  public loading: boolean = true;
+  @Input() newDocName: string = "";
+  constructor(private http: HttpClient, private Service: DocSelectionChangedService, private bckService: BackEndServiceService) { }
 
   ngOnInit(): void {
-
+    this.getDocs();
   }
 
   getDocs(): void {
-    this.posts = ['doc_1', 'doc_2'];
+    this.bckService.getNotes().subscribe((data: Post[]) => {
+      this.posts = data;
+      this.loading = false;
+    });
+    //this.posts = ['quill-demo-room', 'PeterMandl','hh'];
     //this.posts = this.http.get<any>('https://jsonplaceholder.typicode.com/posts',);
   }
 
-  tt(name: string) {
+  tt(id: number) {
     console.log('clicked: ' + name)
-    this.sendMessage();
+    this.sendMessage(id);
   }
 
-  sendMessage(): void {
+  sendMessage(id: number): void {
     // send message to subscribers via observable subject
-    this.Service.sendUpdate('Message from Sender Component to Receiver Component!');
+    this.Service.sendUpdate(id);
+  }
+
+  removeDocument(id: number) {
+    this.bckService.deleteNote(id).subscribe(error => console.log(error));
+
+    this.getDocs();
+  }
+
+  addDocument() {
+    this.bckService.postNote(this.newDocName).subscribe(data => {
+      this.loading = true;
+      this.bckService.getNotes().subscribe(d => {
+        this.posts = d;
+        this.loading = false;
+        this.newDocName = "";
+      });
+
+    });
   }
 }

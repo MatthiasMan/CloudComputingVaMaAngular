@@ -8,8 +8,8 @@ export class DocSelectionChangedService {
   private subjectName = new Subject<any>();
   constructor() { }
 
-  public sendUpdate(message: string) { //the component that wants to update something, calls this fn
-    this.subjectName.next({ text: message }); //next() will feed the value in Subject
+  public sendUpdate(id: number) { //the component that wants to update something, calls this fn
+    this.subjectName.next({ text: id }); //next() will feed the value in Subject
   }
 
   public getUpdate(): Observable<any> { //the receiver component calls this function 

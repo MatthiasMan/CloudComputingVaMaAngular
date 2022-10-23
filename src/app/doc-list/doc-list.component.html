@@ -1,7 +1,28 @@
-<p>doc-list works!</p>
-<button type="button" class="btn btn-primary" (click)="getDocs()">GetDocs</button>
-
+<h2>Document list</h2>
+<mat-spinner *ngIf="loading"></mat-spinner>
 <ul class="list-group" *ngFor="let post of posts">
-        <button (click)="tt(post)" type="button" class="btn btn-light">{{post}}</button>
+        <div class="container">   
+                <div class="row">                 
+                  <div class="col-2">
+                        <button (click)="removeDocument(post.id)" type="button"
+                        class="btn btn-light">remove</button>
+                  </div>
+                  <div class="col">
 
+                  </div>
+                  <div class="col">
+                        <button style="border-color: black; min-width:150px;" (click)="tt(post.id)" type="button"
+                        class="btn btn-light">{{post.name}}</button>
+                  </div>
+                </div>
+              </div>
+        
 </ul>
+<tr></tr>
+<form>
+        <div class="form-group">
+                <label for="exampleInputEmail1">Add new note</label>
+                <input  type="text" [(ngModel)]="newDocName" [ngModelOptions]="{standalone: true}" class="form-control" id="exampleInputEmail1" placeholder="Enter name">
+                <button (click)="addDocument()" type="button" class="btn btn-success">+</button>
+        </div>
+</form>

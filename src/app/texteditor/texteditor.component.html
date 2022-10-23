@@ -1,6 +1,21 @@
-<p>texteditor works!</p>
+<h2>TextEditor</h2>
 <link rel="stylesheet" type="text/css" href="https://cdn.quilljs.com/1.3.6/quill.snow.css">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai-sublime.min.css">
 
-<div #editor id="editor"></div>
+<div class="container">   
+    <div class="row">
+      <div class="col">
+
+      </div>
+      <div class="col">
+
+      </div>
+      <div class="col">
+          <button type="button" (click)="saveDocument()" class="btn btn-primary">Save Document</button>
+      </div>
+    </div>
+  </div>
+<div #editorDaddy id="editorDadd"></div>
+
+
