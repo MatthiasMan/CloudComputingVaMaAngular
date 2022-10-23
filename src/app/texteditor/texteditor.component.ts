@@ -10,7 +10,7 @@ import Quill from 'quill'
 import QuillCursors from 'quill-cursors'
 import { BackEndServiceService } from '../back-end-service.service';
 import { Post } from '../Post';
-
+import { WebsocketProvider } from 'y-websocket'
 
 @Component({
   selector: 'app-texteditor',
@@ -48,6 +48,7 @@ export class TexteditorComponent implements OnInit {
   getNote(id: number) {
     this.backendService.getNote(id).subscribe(data => {
       this.currentPost = data;
+      this.connectionString = data.name;
       var text;
       try {
         text = JSON.parse(data.content);
@@ -94,8 +95,11 @@ export class TexteditorComponent implements OnInit {
     // A Yjs document holds the shared data
     this.ydoc = new Y.Doc()
 
-    this.provider = new WebrtcProvider(this.connectionString, this.ydoc)
-
+    //this.provider = new WebrtcProvider('quill-demo-room', this.ydoc)
+    this. provider = new WebsocketProvider(
+      'wss://demos.yjs.dev', this.connectionString, this.ydoc
+    )
+    console.log(this.connectionString + "connn" )
     // Define a shared text type on the document
     this.ytext = this.ydoc.getText('quill')
 
@@ -103,7 +107,7 @@ export class TexteditorComponent implements OnInit {
     const binding = new QuillBinding(this.ytext, this.quill, this.provider.awareness)
     console.log(content);
     //setting the text in te editor
-    this.quill.setContents(content);
+    //this.quill.setContents(content);
 
     // Remove the selection when the iframe is blurred
     window.addEventListener('blur', () => { this.quill.blur() })
