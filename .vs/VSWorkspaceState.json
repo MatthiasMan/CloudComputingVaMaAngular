@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\texteditor"
   ],
-  "SelectedNode": "\\angular.json",
+  "SelectedNode": "\\src\\app\\texteditor\\texteditor.component.ts",
   "PreviewInSolutionExplorer": false
 }
