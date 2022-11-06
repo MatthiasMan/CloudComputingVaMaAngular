@@ -39,9 +39,11 @@ export class DocListComponent implements OnInit {
   }
 
   removeDocument(id: number) {
-    this.bckService.deleteNote(id).subscribe(error => console.log(error));
+    this.bckService.deleteNote(id).subscribe(data => {
 
-    this.getDocs();
+      this.getDocs();
+    });
+
   }
 
   addDocument() {
